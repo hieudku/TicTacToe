@@ -1,0 +1,44 @@
+html {
+    background-color: rgb(36, 45, 48);
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: monospace;
+    color: rgb(167, 159, 159);
+}
+header {
+    font-size: 32px;
+    color: rgb(167, 159, 159);
+}
+#subheader {
+    font-size: 24px;
+    display: flex;
+    gap: 60px;
+    margin: 40px;
+}
+button {
+    width: 100px;
+    height: 100px;
+
+}
+#playArea {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+}
+footer {
+    color: rgb(167, 159, 159);
+    font-size: 22px;
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    background-color: rgb(55, 52, 57);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
