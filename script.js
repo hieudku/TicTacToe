@@ -1,18 +1,24 @@
 let array = [];
-let inputPlayer = "";
-let computerTurn;
+let inputPlayer1 = "";
+let inputPlayer2 = "";
 let move;
 
 const playerTurn = document.querySelectorAll(".btn");
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
         choice.textContent = 'X';
-        inputPlayer = 'X';
-            const computer = document.querySelectorAll(".btn");
-            computer.forEach(turnAI => {
-                if (choice.textContent != 'X') {
-                turnAI.textContent = 'O';
-                }
-            });
-            });
-     });
+        inputPlayer1 = 'X';
+        console.log(inputPlayer1);
+        nextMove();
+        });
+    });
+function nextMove() {
+    const next = document.querySelectorAll(".btn");
+    next.forEach(turn => {
+        turn.addEventListener('click', (e) => {
+            turn.textContent = 'O';
+            inputPlayer2 = 'O';
+            console.log(inputPlayer2);
+        });
+    });
+}
