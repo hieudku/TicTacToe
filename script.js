@@ -1,24 +1,20 @@
-let array = [];
+let array = [0,1,2,3,4,5,6,7,8];
+let newArray = [];
+let difference;
 let inputPlayer1 = "";
 let inputPlayer2 = "";
 let move;
-
-const playerTurn = document.querySelectorAll(".btn");
+let getID;
+const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
         choice.textContent = 'X';
         inputPlayer1 = 'X';
-        console.log(inputPlayer1);
-        nextMove();
+            getID = event.target.getAttribute('id');
+            console.log(getID);
+            newArray.push(Number(getID));
+            console.log(newArray);
+            difference = array.filter(x => !newArray.includes(x));
+            console.log(difference);
         });
     });
-function nextMove() {
-    const next = document.querySelectorAll(".btn");
-    next.forEach(turn => {
-        turn.addEventListener('click', (e) => {
-            turn.textContent = 'O';
-            inputPlayer2 = 'O';
-            console.log(inputPlayer2);
-        });
-    });
-}
