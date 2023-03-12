@@ -16,5 +16,13 @@ playerTurn.forEach(choice  => {
             console.log(newArray);
             difference = array.filter(x => !newArray.includes(x));
             console.log(difference);
+            document.querySelectorAll('button');
+                let random = difference[Math.floor(Math.random()*difference.length)];
+                newArray.push(random);
+                console.log(random);
+                move = document.getElementById(random);
+                move.textContent = "O";
+                   
         });
     });
+
