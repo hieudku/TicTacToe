@@ -32,7 +32,6 @@ playerTurn.forEach(choice  => {
                 move = document.getElementById(random);
                 move.textContent = "O";
                    //filter testing
-
         });
     });
 function mathRandom () {
@@ -40,7 +39,6 @@ function mathRandom () {
     random = difference[Math.floor(Math.random()*difference.length)];
     newArray.push(random);
 }
-
 function chooseArray() {
     for (let i = 0; i < winList.length; i++) {
         for (let j = 0; j < winList[i].length; j++) {
