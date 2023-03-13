@@ -18,6 +18,10 @@ button {
     height: 100px;
     font-size: 32px;
 }
+button:hover {
+    color: red;
+    transition: 0.5s;
+}
 #playArea {
     display: flex;
     flex-direction: column;
