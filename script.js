@@ -1,13 +1,18 @@
 const winList = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,4,8],
-    [2,4,6],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
 ]
+const dumbMove = [
+    [1, 3, 5],
+    [1, 3, 7],
+    [3, 5, 7],
+];
 let array = [0,1,2,3,4,5,6,7,8];
 let newArray = [];
 let difference;
@@ -30,49 +35,55 @@ playerTurn.forEach(choice  => {
             difference = array.filter(x => !newArray.includes(x));
             // computer's move (after player's click)
             blockPlayer();
-            console.log(unmarked);
-            
-            console.log(playerArray);
+            console.log('newArray: ' +newArray);
             if (playerArray.length < 2) {
+                setTimeout(function(){ //delay.
                 mathRandom();
                 move = document.getElementById(random);
                         move.textContent = inputPlayer2;
+                    },1000); //delay is in milliseconds 
             }
-                    else if (playerArray.length > 2) {
-                        blockPlayer();
-                    }
-            
-                   //filter testing
         });
     });
 function mathRandom() {
     document.querySelectorAll('button');
     random = difference[Math.floor(Math.random()*difference.length)];
     newArray.push(random);
-    
-        if (playerArray.length >2) {
+        if (playerArray.length > 2) {
             playerArray.splice(0, 1);
         }
 }
+//function to block winning moves.
 function blockPlayer() {
     for (let i = 0; i < winList.length; i++) {
         let combo = winList[i];
          marked = combo.filter(cell => playerArray.includes(cell));
-            if (marked.length === 2) {
-                 unmarked = combo.filter(cell => !playerArray.includes(cell));
-                    if (difference.includes(unmarked[0])) {
-                        newArray.push(unmarked[0]);
-                        move = document.getElementById(unmarked);
-                        move.textContent = inputPlayer2;
-                        return unmarked[0];
+        if (marked.length === 2) {
+            unmarked = combo.filter(cell => !playerArray.includes(cell));
+            if (difference.includes(unmarked[0])) {
+                newArray.push(unmarked[0]);
+                move = document.getElementById(unmarked);
+                setTimeout(function(){//delay.
+                move.textContent = inputPlayer2;
+                return unmarked[0];
+            },1000); //delay is in milliseconds 
             }
-            
+        }
+    }
+    for (let j = 0; j < dumbMove.length; j++) {
+        let dumb = dumbMove[j];
+        let wrongMove = dumb.filter(cell => playerArray.includes(cell));
+        if (wrongMove.length === 2) {
+            let wrong = dumb.filter(cell => !playerArray.includes(cell));
+            if (difference.includes(wrong[0])) {
+                newArray.push(wrong[0]);
+                move = document.getElementById(wrong);
+                setTimeout(function(){//delay.
+                move.textContent = inputPlayer2;
+                return wrong[0];
+                },1000); //delay is in milliseconds 
+            }
         }
     }
     return null;
 }
-//function to block winning move
-
-/* 
-
-*/
