@@ -8,7 +8,18 @@ const winList = [
     [1, 4, 7],
     [2, 5, 8],
 ]
-let array = [0,1,2,3,4,5,6,7,8];
+const oddArray = [
+    [1, 3],
+    [3, 7],
+    [5, 7],
+    [1, 5],
+    [0, 5],
+    [0, 7],
+    [5, 6],
+    [1, 8],
+    [3, 8]
+]
+const array = [0,1,2,3,4,5,6,7,8];
 let takenArray = [];
 let availableArray = [];
 let playerArray = [];
@@ -17,8 +28,7 @@ let inputPlayer2 = "O";
 let move;
 let getID;
 let firstMove;
-let winningChance;
-let odd;
+let marked;
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
@@ -26,17 +36,15 @@ playerTurn.forEach(choice  => {
             getID = event.target.getAttribute('id');
             playerArray.push(Number(getID));
             takenArray.push(Number(getID));
-            availableArray = array.filter(x => !takenArray.includes(x));
-            console.log('player array: ' + playerArray);
             // computer's move (after player's click)
-                console.log('takenArray: ' +takenArray);
-                    if (playerArray.length < 2) {
-                        mathRandom();
-                    };
-                    blockPlayer();
+            if (playerArray.length < 2) {
+                mathRandom();
+            };
+            blockPlayer();
+            oddMove();
+            availableArray = array.filter(x => !takenArray.includes(x));
         });
     });
-    console.log('takenArray: ' + takenArray);
 function mathRandom() {
     setTimeout(function(){ //delay.
     document.querySelectorAll('button');
@@ -44,14 +52,30 @@ function mathRandom() {
     move = document.getElementById(firstMove);
     move.textContent = inputPlayer2;
     takenArray.push(Number(firstMove));
+    return firstMove;
 },1000); //delay is in milliseconds 
+};
+//if win combo could not be applied, use this function to generate random moves.
+function oddMove() {
+    availableArray = array.filter(x => !takenArray.includes(x));
+    for (let i = 0; i < oddArray.length; i++) {
+        let odd = oddArray[i];
+        let oddMark = odd.filter(cell => playerArray.includes(cell));
+            if (playerArray.length < 3) {
+            if (oddMark.length === 2) {
+                mathRandom();
+                return;
+            };
+        };
+    };
+    return null;
 };
 //function to block winning moves.
 function blockPlayer() {
     availableArray = array.filter(x => !takenArray.includes(x));
     for (let i = 0; i < winList.length; i++) {
         let combo = winList[i];
-        let marked = combo.filter(cell => playerArray.includes(cell));
+        marked = combo.filter(cell => playerArray.includes(cell));
         if (marked.length === 2) {
            let unmarked = combo.filter(cell => !playerArray.includes(cell));
             if (availableArray.includes(unmarked[0])) {
@@ -59,8 +83,8 @@ function blockPlayer() {
                let move = document.getElementById(unmarked);
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
-                console.log('available: '+ availableArray);
                 },1000); //delay is in milliseconds 
+                console.log('block move: '+unmarked[0]);
                     return unmarked[0];
             }
             //Check if there are 2 winning possibilities.
@@ -69,7 +93,7 @@ function blockPlayer() {
                 let move = document.getElementById(unmarked);
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
-                console.log('available: '+ availableArray);
+                console.log('block move: '+unmarked[1]);
                 },1000); //delay is in milliseconds 
                     return unmarked[1];
             }
@@ -81,17 +105,18 @@ function blockPlayer() {
                 let move = document.getElementById(randomCell);
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
-                console.log('available: '+ availableArray);
                 },1000); //delay is in milliseconds 
                     return unmarked[randonIndex];
             };
         };        
-            if (marked.length === 3) {
-                setTimeout(function(){//delay.
-                alert('You won!');
-                },1000); //delay is in milliseconds
-            }
+    };
+    win();
+};
+//function to determine winner.
+function win() {
+if (marked.length === 3) {
+    setTimeout(function(){//delay.
+    alert('You won!');
+    },1000); //delay is in milliseconds
     };
 };
-
-//determine winner/loser
