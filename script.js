@@ -72,6 +72,7 @@ function oddMove() {
         let oddMark = odd.filter(cell => playerArray.includes(cell));
             if (oddMark.length == 2) {
                 mathRandom();
+                console.log('odd mark: ' + firstMove)
                 return;
         };
     };
