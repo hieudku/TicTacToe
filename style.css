@@ -21,11 +21,12 @@ button {
     height: 6rem;
     font-size: 3rem;
     border: solid rgb(36, 45, 48) 0.15rem;
+    transition: color 0.8s;
 }
 button:hover {
-    color: rgb(207, 66, 103);
-    transition: 0.7s;
-    background-color: rgb(167, 159, 159);
+    color: rgb(242, 51, 102);
+    transition: color 0.8s;
+    background-color: rgb(93, 115, 108);
 } 
 #playArea {
     display: flex;
