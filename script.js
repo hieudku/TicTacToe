@@ -1,81 +1,45 @@
-const winList = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-]
-const oddArray = [
-    [1, 3, 5],
-    [3, 5, 7],
-    [1, 3, 7],
-    [1, 3, 8],
-    [0, 5, 7],
-    [1, 5, 6],
-    [2, 3, 7]
-]
+const winList = [[0, 1, 2],[3, 4, 5],
+                 [6, 7, 8],[0, 4, 8],
+                 [2, 4, 6],[0, 3, 6],
+                 [1, 4, 7],[2, 5, 8],] //combo list.
 const array = [0,1,2,3,4,5,6,7,8];
 let takenArray = [];
 let availableArray = [];
 let playerArray = [];
+let computerArray = [];
 let inputPlayer1 = "X";
 let inputPlayer2 = "O";
 let move;
 let getID;
-let firstMove;
+let randomMove;
 let marked;
-let moveMade = false;
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
-        moveMade == false;
         choice.textContent = inputPlayer1;
             getID = event.target.getAttribute('id');
             playerArray.push(Number(getID));
             takenArray.push(Number(getID));
             availableArray = array.filter(x => !takenArray.includes(x));
-            // computer's first move is always random.
-            if (playerArray.length < 2) {
-                mathRandom();
-            };
+            console.log('available: '+availableArray + ' end');
             blockPlayer();
-            oddMove();
+            checkMark();
             if (playerArray.length > 2) {
                 playerArray.splice(0, 1);
-            }
+            };
             console.log('player moves list: '+playerArray);
             console.log('taken cells: '+takenArray);
         });
     });
-//function for computer to random generate a move if its its first or odd move.
+// computer to generate a random available move.
 function mathRandom() {
-    if (moveMade == false) {
-    setTimeout(function(){ //delay.
+    setTimeout(function() { //delay.
     document.querySelectorAll('button');
-    firstMove = availableArray[Math.floor(Math.random()*availableArray.length)];
-    move = document.getElementById(firstMove);
+    randomMove = availableArray[Math.floor(Math.random()*availableArray.length)];
+    move = document.getElementById(randomMove);
     move.textContent = inputPlayer2;
-    takenArray.push(Number(firstMove));
-    availableArray = array.filter(x => !takenArray.includes(x));
-    console.log('random: ' + firstMove);
-    console.log('available: '+availableArray + ' end');
-},1000); //delay is in milliseconds 
-    }
-};
-//if win combo could not be applied, use this function to generate random moves.
-function oddMove() {
-    for (let i = 0; i < oddArray.length; i++) {
-        let odd = oddArray[i];
-        let oddMark = odd.filter(cell => playerArray.includes(cell));
-            if (oddMark.length == 2) {
-                mathRandom();
-                console.log('odd mark: ' + firstMove)
-                return;
-        };
-    };
+    takenArray.push(Number(randomMove));
+    },1000); //delay is in milliseconds 
 };
 //function to block player's winning combo.
 function blockPlayer() {
@@ -94,9 +58,6 @@ function blockPlayer() {
                 console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
             }
-            else if (!availableArray.includes(unmarked[0])) {
-                mathRandom();
-               }
             //Check if there are 2 winning possibilities.
             else if (availableArray.includes(unmarked[1])) {
                 let move = document.getElementById(unmarked);
@@ -120,15 +81,18 @@ function blockPlayer() {
             };
         }; // end marked length check.
         console.log('available: '+availableArray + ' end');
-        //if there are combo, player wins.
-        if (marked.length === 3) {
-            setTimeout(function(){//delay.
-            alert("You won!");
-            if (availableArray == []) {
-                prompt('Play again?')
-            }
-        },1000); //delay is in milliseconds 
-            return;
-        }        
-    }; //end for loop.
-}; //end function.
+        //if there are combo, player wins.       
+    }; //end winList for loop.
+}; //end block function.
+function checkMark() {
+    if (marked.length < 2) { // if nothing to block, random move.
+        mathRandom();
+        return;
+    }
+}
+function checkResult() {
+    for (let i = 0; i < winList.length; i++) {
+        let checkPlayer = combo.filter(cell => playerArray.includes(cell));
+        let checkComputer = combo.filter(cell => playerArray.includes(cell));
+    }
+}
