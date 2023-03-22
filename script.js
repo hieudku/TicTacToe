@@ -24,9 +24,6 @@ playerTurn.forEach(choice  => {
             console.log('available: '+availableArray + ' end');
             blockPlayer();
             checkMark();
-            if (playerArray.length > 2) {
-                playerArray.splice(0, 1);
-            };
             console.log('player moves list: '+playerArray);
             console.log('taken cells: '+takenArray);
         });
@@ -39,6 +36,7 @@ function mathRandom() {
     move = document.getElementById(randomMove);
     move.textContent = inputPlayer2;
     takenArray.push(Number(randomMove));
+    computerArray.push(Number(randomMove));
     },1000); //delay is in milliseconds 
 };
 //function to block player's winning combo.
@@ -54,6 +52,7 @@ function blockPlayer() {
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
                 takenArray.push(unmarked[0]);
+                computerArray.push(unmarked[0]);
                 },1000); //delay is in milliseconds 
                 console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
@@ -64,6 +63,7 @@ function blockPlayer() {
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
                 takenArray.push(unmarked[1]);
+                computerArray.push(unmarked[0]);
                 console.log('block move1: '+unmarked[1]);
                 },1000); //delay is in milliseconds 
                     return unmarked[1];
@@ -76,10 +76,16 @@ function blockPlayer() {
                 setTimeout(function(){//delay.
                 move.textContent = inputPlayer2;
                 takenArray.push(randomCell);
+                computerArray.push(randomCell);
                 },1000); //delay is in milliseconds 
                     return unmarked[randonIndex];
             };
         }; // end marked length check.
+        if (marked.length === 3) {
+            setTimeout(function(){//delay.
+            alert("you win!");
+        },1000); //delay is in milliseconds 
+        }
         console.log('available: '+availableArray + ' end');
         //if there are combo, player wins.       
     }; //end winList for loop.
@@ -88,11 +94,5 @@ function checkMark() {
     if (marked.length < 2) { // if nothing to block, random move.
         mathRandom();
         return;
-    }
-}
-function checkResult() {
-    for (let i = 0; i < winList.length; i++) {
-        let checkPlayer = combo.filter(cell => playerArray.includes(cell));
-        let checkComputer = combo.filter(cell => playerArray.includes(cell));
-    }
-}
+    };
+};
