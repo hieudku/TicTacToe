@@ -45,3 +45,6 @@ button:hover {
     padding: 1.5rem;
     background-color: rgb(90, 115, 124);
 }
+#restart:hover {
+    background-color: rgb(68, 87, 94);
+}
