@@ -130,6 +130,8 @@ function blockPlayer() {
         if ((takenArray.length === array.length) && (marked.length < 2)) {
             availableArray = [];
             setTimeout(function(){
+            // Shake animation.
+            document.getElementById("playArea").style.animation = "shake 0.4s ease-out";
                 drawGame();
             }, 800);
         }
