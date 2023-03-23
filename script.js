@@ -15,27 +15,7 @@ let getID;
 let randomMove;
 let marked;
 let aiMark;
-// Randomly choose a first mover.
-let randomFirst;
-const randomChoice = [0, 1];
-const firstMover = document.getElementById("firstMove");
-        firstMover.addEventListener('click', start => {
-            document.getElementById("playArea").style.display = "flex";
-            document.getElementById("firstMove").style.display = "none";
-            randomFirst = randomChoice[Math.floor(Math.random()*randomChoice.length)];
-                if (randomFirst === 1) {
-                    document.getElementById("message").innerHTML = "Computer goes first";
-                    mathRandom();
-                    playerMove();
-                }
-                else if (randomFirst === 0) {
-                    document.getElementById("message").innerHTML = "You go first";
-                    playerMove();
-                }
-        });
-        
 // player's turn when clicked.
-function playerMove() {
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
@@ -45,15 +25,14 @@ playerTurn.forEach(choice  => {
             playerArray.push(Number(getID));
             takenArray.push(Number(getID));
             availableArray = array.filter(x => !takenArray.includes(x));
-            console.log('available: '+availableArray + ' end');
+            console.log('available: '+availableArray);
                 blockPlayer();
                 checkMark();
                 console.log('player moves list: '+playerArray);
                 console.log('taken cells: '+takenArray);
                 console.log('marked: '+marked);
-        });
     });
-};
+});
 // computer's move check.
 function checkAI() {
     console.log('ai array: ' + computerArray);
@@ -88,7 +67,7 @@ function mathRandom() {
     move.textContent = inputPlayer2;
     takenArray.push(Number(randomMove));
     computerArray.push(Number(randomMove));
-        checkAI();
+    checkAI()
     },700); //delay is in milliseconds 
 };
 //function to block player's winning combo.
@@ -106,7 +85,7 @@ function blockPlayer() {
                     takenArray.push(unmarked[0]);
                     computerArray.push(unmarked[0]);
                     checkAI();
-                },1200); //delay is in milliseconds 
+                },800); //delay is in milliseconds 
                     console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
             }
@@ -119,25 +98,26 @@ function blockPlayer() {
                     computerArray.push(unmarked[0]);
                         checkAI();
                     console.log('block move1: '+unmarked[1]);
-                },2000); //delay is in milliseconds 
+                },1000); //delay is in milliseconds 
                     return unmarked[1];
             }
             //if there are, choose a single random outcome.
             else if (unmarked.length > 1) {
                 let randomIndex = Math.floor(mathRandom()*unmarked.length);
                 let randomCell = unmarked[randomIndex];
-                let move = document.getElementById(randomCell);
+                let ranMove = document.getElementById(randomCell);
                 setTimeout(function(){//delay.
-                    move.textContent = inputPlayer2;
+                    ranMove.textContent = inputPlayer2;
                     takenArray.push(randomCell);
                     computerArray.push(randomCell);
                     checkAI();
-                },2000); //delay is in milliseconds 
+                },1000); //delay is in milliseconds 
                     return unmarked[randomIndex];
             };
         }; // end marked length check.
         if (marked.length === 3) {
             availableArray = [];
+            computerArray = [];
             // Highlight winning combo.
             document.getElementById(marked[0]).style.color = "rgb(81, 223, 104)"; 
             document.getElementById(marked[1]).style.color = "rgb(81, 223, 104)";
@@ -150,7 +130,7 @@ function blockPlayer() {
                 resetGame();
             },500); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length - 1) && (marked.length < 2)) {
+        if ((takenArray.length === array.length) && (marked.length < 2)) {
             availableArray = [];
             setTimeout(function(){
             // Shake animation.
