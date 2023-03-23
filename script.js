@@ -81,10 +81,10 @@ function blockPlayer() {
                     return unmarked[randonIndex];
             };
         }; // end marked length check.
-        if (marked.length === 3) {
-            setTimeout(function(){//delay.
+        if (marked.length === 3 || takenArray.length === array.length) {
             availableArray = [];
-            document.getElementById("youWin").style.display = "inline-block";        
+            setTimeout(function(){//delay.
+            resetGame();
             },1000); //delay is in milliseconds 
         };
         console.log('available: '+availableArray + ' end');
@@ -99,3 +99,12 @@ function checkMark() {
 };
 // DOM inital values
 document.getElementById("youWin").style.display = "none";
+document.getElementById("restart").style.display = "none";
+
+// make divs disappear!
+function resetGame() {
+    document.getElementById("youWin").style.display = "inline-block";        
+    document.getElementById("restart").style.display = "inline-block";
+    inputPlayer1 = "";
+    inputPlayer2 = "";
+};
