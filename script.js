@@ -15,7 +15,23 @@ let getID;
 let randomMove;
 let marked;
 let aiMark;
+// Randomly choose a first mover.
+let randomFirst;
+const randomChoice = [0, 1];
+const firstMover = document.getElementById("firstMove");
+        firstMover.addEventListener('click', start => {
+            document.getElementById("playArea").style.display = "flex";
+            document.getElementById("firstMove").style.display = "none";
+            for(let i = 0; i < randomChoice.length; i++) {
+            randomFirst = randomChoice[Math.floor(Math.random()*randomChoice.length)];
+                if (randomFirst == 0) {
+                mathRandom();
+                }
+            }
+            playerMove();
+        });
 // player's turn when clicked.
+function playerMove() {
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
@@ -32,6 +48,7 @@ playerTurn.forEach(choice  => {
                 console.log('marked: '+marked);
         });
     });
+};
 // computer's move check.
 function checkAI() {
     console.log('ai array: ' + computerArray);
@@ -58,6 +75,7 @@ function checkAI() {
 };
 // computer to generate a random available move.
 function mathRandom() {
+    availableArray = array.filter(x => !takenArray.includes(x));
     setTimeout(function() { //delay.
     document.querySelectorAll('button');
     randomMove = availableArray[Math.floor(Math.random()*availableArray.length)];
@@ -125,7 +143,7 @@ function blockPlayer() {
             document.getElementById(marked[2]).style.animation = "shake 0.4s ease-out";
             setTimeout(function(){//delay.
                 resetGame();
-            },1000); //delay is in milliseconds 
+            },500); //delay is in milliseconds 
         };
         if ((takenArray.length === array.length) && (marked.length < 2)) {
             availableArray = [];
