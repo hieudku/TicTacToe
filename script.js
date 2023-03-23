@@ -13,6 +13,8 @@ let move;
 let getID;
 let randomMove;
 let marked;
+let aiMark;
+// player's turn when clicked.
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
@@ -28,6 +30,20 @@ playerTurn.forEach(choice  => {
             console.log('taken cells: '+takenArray);
         });
     });
+// computer's move check.
+function checkAI() {
+    console.log('ai array: ' + computerArray);
+document.querySelectorAll('button');
+availableArray = array.filter(x => !takenArray.includes(x));
+    for (let i = 0; i < winList.length; i++) {
+        let aiMove = winList[i];
+        aiMark = aiMove.filter(cell => computerArray.includes(cell));
+        if (aiMark.length === 3) {
+            availableArray = [];
+            aiWin();
+        }
+    }
+}
 // computer to generate a random available move.
 function mathRandom() {
     setTimeout(function() { //delay.
@@ -37,6 +53,7 @@ function mathRandom() {
     move.textContent = inputPlayer2;
     takenArray.push(Number(randomMove));
     computerArray.push(Number(randomMove));
+    checkAI();
     },1000); //delay is in milliseconds 
 };
 //function to block player's winning combo.
@@ -53,6 +70,7 @@ function blockPlayer() {
                 move.textContent = inputPlayer2;
                 takenArray.push(unmarked[0]);
                 computerArray.push(unmarked[0]);
+                checkAI();
                 },1000); //delay is in milliseconds 
                 console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
@@ -64,6 +82,7 @@ function blockPlayer() {
                 move.textContent = inputPlayer2;
                 takenArray.push(unmarked[1]);
                 computerArray.push(unmarked[0]);
+                checkAI();
                 console.log('block move1: '+unmarked[1]);
                 },1000); //delay is in milliseconds 
                     return unmarked[1];
@@ -77,16 +96,23 @@ function blockPlayer() {
                 move.textContent = inputPlayer2;
                 takenArray.push(randomCell);
                 computerArray.push(randomCell);
+                checkAI();
                 },1000); //delay is in milliseconds 
                     return unmarked[randonIndex];
             };
         }; // end marked length check.
-        if (marked.length === 3 || takenArray.length === array.length) {
+        if (marked.length === 3) {
             availableArray = [];
             setTimeout(function(){//delay.
             resetGame();
             },1000); //delay is in milliseconds 
         };
+        if ((takenArray.length === array.length) && marked.length != 3) {
+            availableArray = [];
+            setTimeout(function(){
+            drawGame();
+            }, 800);
+        }
         console.log('available: '+availableArray + ' end');
         //if there are combo, player wins.       
     }; //end winList for loop.
@@ -108,3 +134,14 @@ function resetGame() {
     inputPlayer1 = "";
     inputPlayer2 = "";
 };
+function drawGame() {
+    document.getElementById("restart").style.display = "inline-block";
+    document.getElementById("youWin").style.display = "inline-block";        
+    document.getElementById("youWin").innerHTML = "Draw";        
+
+}
+function aiWin() {
+    document.getElementById("restart").style.display = "inline-block";
+    document.getElementById("youWin").style.display = "inline-block";        
+    document.getElementById("youWin").innerHTML = "You lose"; 
+}
