@@ -27,7 +27,6 @@ button {
 button:hover {
     color: rgb(242, 51, 102);
     transition: color 0.8s;
-    background-color: rgb(93, 115, 108);
 } 
 #playArea {
     display: flex;

@@ -83,9 +83,10 @@ function blockPlayer() {
         }; // end marked length check.
         if (marked.length === 3) {
             setTimeout(function(){//delay.
-            alert("you win!");
-        },1000); //delay is in milliseconds 
-        }
+            availableArray = [];
+            document.getElementById("youWin").style.display = "inline-block";        
+            },1000); //delay is in milliseconds 
+        };
         console.log('available: '+availableArray + ' end');
         //if there are combo, player wins.       
     }; //end winList for loop.
@@ -96,3 +97,5 @@ function checkMark() {
         return;
     };
 };
+// DOM inital values
+document.getElementById("youWin").style.display = "none";
