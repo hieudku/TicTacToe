@@ -61,7 +61,7 @@ function mathRandom() {
     takenArray.push(Number(randomMove));
     computerArray.push(Number(randomMove));
         checkAI();
-    },1000); //delay is in milliseconds 
+    },700); //delay is in milliseconds 
 };
 //function to block player's winning combo.
 function blockPlayer() {
@@ -78,7 +78,7 @@ function blockPlayer() {
                     takenArray.push(unmarked[0]);
                     computerArray.push(unmarked[0]);
                     checkAI();
-                },1000); //delay is in milliseconds 
+                },1200); //delay is in milliseconds 
                     console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
             }
@@ -91,7 +91,7 @@ function blockPlayer() {
                     computerArray.push(unmarked[0]);
                         checkAI();
                     console.log('block move1: '+unmarked[1]);
-                },1000); //delay is in milliseconds 
+                },2000); //delay is in milliseconds 
                     return unmarked[1];
             }
             //if there are, choose a single random outcome.
@@ -104,7 +104,7 @@ function blockPlayer() {
                     takenArray.push(randomCell);
                     computerArray.push(randomCell);
                     checkAI();
-                },1000); //delay is in milliseconds 
+                },2000); //delay is in milliseconds 
                     return unmarked[randomIndex];
             };
         }; // end marked length check.
@@ -117,7 +117,7 @@ function blockPlayer() {
                 resetGame();
             },1000); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length) && (marked.length < 3)) {
+        if ((takenArray.length === array.length) && (marked.length < 2)) {
             availableArray = [];
             setTimeout(function(){
                 drawGame();
@@ -138,7 +138,8 @@ function checkMark() {// if nothing to block, random move.
 
 // make results appear!
 function resetGame() {
-    document.getElementById("youWin").style.display = "inline-block";        
+    document.getElementById("youWin").style.display = "inline-block";
+    document.getElementById("youWin").innerHTML = "You win!";
     document.getElementById("restart").style.display = "inline-block";
     inputPlayer1 = "";
     inputPlayer2 = "";
