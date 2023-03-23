@@ -41,9 +41,14 @@ function checkAI() {
         let aiMove = winList[i];
         aiMark = aiMove.filter(cell => computerArray.includes(cell));
         if (aiMark.length === 3) {
+            // Highlight winning combo.
             document.getElementById(aiMark[0]).style.color = "rgb(242, 51, 102)"; 
             document.getElementById(aiMark[1]).style.color = "rgb(242, 51, 102)";
             document.getElementById(aiMark[2]).style.color = "rgb(242, 51, 102)"; 
+            // Shake animation.
+            document.getElementById(aiMark[0]).style.animation = "shake 0.4s ease-out";
+            document.getElementById(aiMark[1]).style.animation = "shake 0.4s ease-out";
+            document.getElementById(aiMark[2]).style.animation = "shake 0.4s ease-out";
             availableArray = [];
             setTimeout(function() { // delay.
                 aiWin();
@@ -110,9 +115,14 @@ function blockPlayer() {
         }; // end marked length check.
         if (marked.length === 3) {
             availableArray = [];
+            // Highlight winning combo.
             document.getElementById(marked[0]).style.color = "rgb(81, 223, 104)"; 
             document.getElementById(marked[1]).style.color = "rgb(81, 223, 104)";
             document.getElementById(marked[2]).style.color = "rgb(81, 223, 104)"; 
+            // Shake animation.
+            document.getElementById(marked[0]).style.animation = "shake 0.4s ease-out";
+            document.getElementById(marked[1]).style.animation = "shake 0.4s ease-out";
+            document.getElementById(marked[2]).style.animation = "shake 0.4s ease-out";
             setTimeout(function(){//delay.
                 resetGame();
             },1000); //delay is in milliseconds 
@@ -148,7 +158,7 @@ function resetGame() {
 function drawGame() {
     document.getElementById("restart").style.display = "inline-block";
     document.getElementById("youWin").style.display = "inline-block";        
-    document.getElementById("youWin").innerHTML = "Draw";        
+    document.getElementById("youWin").innerHTML = "Draw";      
 // you lose!
 };
 function aiWin() {
