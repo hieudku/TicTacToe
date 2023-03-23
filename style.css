@@ -7,11 +7,12 @@ body {
     align-items: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(167, 159, 159);
-    gap: 5rem;
+    gap: 1.4rem;
 }
 header {
     font-size: 2.5rem;
     color: rgb(167, 159, 159);
+    margin-bottom: 1rem;
 }
 button {
     color: rgb(36, 45, 48);
@@ -34,4 +35,14 @@ button:hover {
     flex-wrap: wrap;
     width: 18rem;
     height: 18rem;
+}
+#youWin {
+    font-size: 1.5rem;
+}
+#restart {
+    text-decoration: none;
+    font-size: 2rem;
+    color: rgb(167, 159, 159);
+    padding: 1.5rem;
+    background-color: rgb(90, 115, 124);
 }
