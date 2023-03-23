@@ -1,8 +1,8 @@
-const winList = [[0, 1, 2],[3, 4, 5],
-                 [6, 7, 8],[0, 4, 8],
-                 [2, 4, 6],[0, 3, 6],
-                 [1, 4, 7],[2, 5, 8],
-                 [4, 1, 7],[5, 2, 8]] //combo list.
+const winList = [[0, 1, 2], [3, 4, 5],
+                 [6, 7, 8], [8, 4, 0],
+                 [2, 4, 6], [0, 3, 6],
+                 [1, 4, 7], [2, 5, 8]]
+                 //combo list.
 const array = [0,1,2,3,4,5,6,7,8];
 let takenArray = [];
 let availableArray = [];
@@ -29,6 +29,7 @@ playerTurn.forEach(choice  => {
                 checkMark();
                 console.log('player moves list: '+playerArray);
                 console.log('taken cells: '+takenArray);
+                console.log('marked: '+marked);
         });
     });
 // computer's move check.
@@ -40,9 +41,9 @@ function checkAI() {
         let aiMove = winList[i];
         aiMark = aiMove.filter(cell => computerArray.includes(cell));
         if (aiMark.length === 3) {
-            document.getElementById(aiMarked[0]).style.color = "rgb(242, 51, 102)"; 
-            document.getElementById(aiMarked[1]).style.color = "rgb(242, 51, 102)";
-            document.getElementById(aiMarked[2]).style.color = "rgb(242, 51, 102)"; 
+            document.getElementById(aiMark[0]).style.color = "rgb(242, 51, 102)"; 
+            document.getElementById(aiMark[1]).style.color = "rgb(242, 51, 102)";
+            document.getElementById(aiMark[2]).style.color = "rgb(242, 51, 102)"; 
             availableArray = [];
             setTimeout(function() { // delay.
                 aiWin();
@@ -104,7 +105,7 @@ function blockPlayer() {
                     computerArray.push(randomCell);
                     checkAI();
                 },1000); //delay is in milliseconds 
-                    return unmarked[randonIndex];
+                    return unmarked[randomIndex];
             };
         }; // end marked length check.
         if (marked.length === 3) {
@@ -116,7 +117,7 @@ function blockPlayer() {
                 resetGame();
             },1000); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length) && marked.length !== 3) {
+        if ((takenArray.length === array.length) && (marked.length < 3)) {
             availableArray = [];
             setTimeout(function(){
                 drawGame();
@@ -139,7 +140,6 @@ function checkMark() {// if nothing to block, random move.
 function resetGame() {
     document.getElementById("youWin").style.display = "inline-block";        
     document.getElementById("restart").style.display = "inline-block";
- 
     inputPlayer1 = "";
     inputPlayer2 = "";
 };
@@ -153,5 +153,5 @@ function drawGame() {
 function aiWin() {
     document.getElementById("restart").style.display = "inline-block";
     document.getElementById("youWin").style.display = "inline-block";        
-    document.getElementById("youWin").innerHTML = "You lose"; 
+    document.getElementById("youWin").innerHTML = "You lose :("; 
 };
