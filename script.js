@@ -22,19 +22,24 @@ const firstMover = document.getElementById("firstMove");
         firstMover.addEventListener('click', start => {
             document.getElementById("playArea").style.display = "flex";
             document.getElementById("firstMove").style.display = "none";
-            for(let i = 0; i < randomChoice.length; i++) {
             randomFirst = randomChoice[Math.floor(Math.random()*randomChoice.length)];
-                if (randomFirst == 0) {
-                mathRandom();
+                if (randomFirst === 1) {
+                    document.getElementById("message").innerHTML = "Computer goes first";
+                    mathRandom();
+                    playerMove();
                 }
-            }
-            playerMove();
+                else if (randomFirst === 0) {
+                    document.getElementById("message").innerHTML = "You go first";
+                    playerMove();
+                }
         });
+        
 // player's turn when clicked.
 function playerMove() {
 const playerTurn = document.querySelectorAll('button');
 playerTurn.forEach(choice  => {
      choice.addEventListener('click', event => {
+        document.getElementById("message").style.display = "none";
         choice.textContent = inputPlayer1;
             getID = event.target.getAttribute('id');
             playerArray.push(Number(getID));
@@ -145,7 +150,7 @@ function blockPlayer() {
                 resetGame();
             },500); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length) && (marked.length < 2)) {
+        if ((takenArray.length === array.length - 1) && (marked.length < 2)) {
             availableArray = [];
             setTimeout(function(){
             // Shake animation.
@@ -159,13 +164,11 @@ function blockPlayer() {
 function checkMark() {// if nothing to block, random move.
     if (marked.length < 2) { 
         mathRandom();
-        return;
     };
 };
 // hide DOM results.
     document.getElementById("youWin").style.display = "none";
     document.getElementById("restart").style.display = "none";
-
 // make results appear!
 function resetGame() {
     document.getElementById("youWin").style.display = "inline-block";

@@ -71,3 +71,7 @@ button:hover {
     color: rgb(167, 159, 159);
     background-color: rgb(74, 113, 128);    
 }
+#message {
+    font-size: 1rem;
+    color: rgb(167, 159, 159);
+}
