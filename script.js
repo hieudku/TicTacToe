@@ -1,7 +1,7 @@
-const winList = [[0, 1, 2], [3, 4, 5],
+const winList = [[0, 1, 2], [3, 4, 5], [5, 2, 8],
                  [6, 7, 8], [8, 4, 0],
                  [2, 4, 6], [0, 3, 6],
-                 [1, 4, 7], [2, 5, 8]]
+                 [1, 4, 7]];
                  //combo list.
 const array = [0,1,2,3,4,5,6,7,8];
 let takenArray = [];
@@ -27,13 +27,13 @@ playerTurn.forEach(choice  => {
                 filter();
                 blockPlayer();
                 checkMark();
-                console.log('player moves list: '+playerArray);
-                console.log('taken cells: '+takenArray);
+                console.log('player arr: '+playerArray);
+                console.log('taken arr: '+takenArray);
                 console.log('marked: '+marked);
                 console.log('available: '+availableArray);
     });
 });
-// Filter
+// Filter  arrays
 function filter() {
     availableArray = array.filter(x => !takenArray.includes(x));
 }
@@ -41,7 +41,7 @@ function filter() {
 function checkAI() {
     console.log('ai array: ' + computerArray);
     document.querySelectorAll('button');
-    availableArray = array.filter(x => !takenArray.includes(x));
+    filter();
     for (let i = 0; i < winList.length; i++) {
         let aiMove = winList[i];
         aiMark = aiMove.filter(cell => computerArray.includes(cell));
@@ -55,15 +55,15 @@ function checkAI() {
             document.getElementById(aiMark[1]).style.animation = "shake 0.4s ease-out";
             document.getElementById(aiMark[2]).style.animation = "shake 0.4s ease-out";
             availableArray = [];
-            setTimeout(function() { // delay.
+            //setTimeout(function() { // delay.
                 aiWin();
-            }, 800);
+            //}, 800);
         };
     };
 };
 // computer to generate a random available move.
 function mathRandom() {
-    setTimeout(function() { //delay.
+    //setTimeout(function() { //delay.
     document.querySelectorAll('button');
     randomMove = availableArray[Math.floor(Math.random()*availableArray.length)];
     document.getElementById(randomMove).textContent = inputPlayer2;
@@ -73,11 +73,11 @@ function mathRandom() {
     console.log('random: '+randomMove);
     console.log('available after: '+availableArray);
     checkAI()
-    },700); //delay is in milliseconds 
+    //},700); //delay is in milliseconds 
 };
 //function to block player's winning combo.
 function blockPlayer() {
-    availableArray = array.filter(x => !takenArray.includes(x));
+    filter();
     for (let i = 0; i < winList.length; i++) {
         let combo = winList[i];
         marked = combo.filter(cell => playerArray.includes(cell));
@@ -85,25 +85,25 @@ function blockPlayer() {
            let unmarked = combo.filter(cell => !playerArray.includes(cell));
             if (availableArray.includes(unmarked[0])) {
                let move = document.getElementById(unmarked);
-                setTimeout(function(){//delay.
+                //setTimeout(function(){//delay.
                     move.textContent = inputPlayer2;
                     takenArray.push(unmarked[0]);
                     computerArray.push(unmarked[0]);
                     checkAI();
-                },800); //delay is in milliseconds 
+               // },800); //delay is in milliseconds 
                     console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
             }
             //Check if there are 2 winning possibilities.
             else if (availableArray.includes(unmarked[1])) {
                 let move = document.getElementById(unmarked);
-                setTimeout(function(){//delay.
+                //setTimeout(function(){//delay.
                     move.textContent = inputPlayer2;
                     takenArray.push(unmarked[1]);
                     computerArray.push(unmarked[0]);
                         checkAI();
                     console.log('block move1: '+unmarked[1]);
-                },1000); //delay is in milliseconds 
+                //},1000); //delay is in milliseconds 
                     return unmarked[1];
             }
             //if there are, choose a single random outcome.
@@ -111,12 +111,12 @@ function blockPlayer() {
                 let randomIndex = Math.floor(mathRandom()*unmarked.length);
                 let randomCell = unmarked[randomIndex];
                 let ranMove = document.getElementById(randomCell);
-                setTimeout(function(){//delay.
+                //setTimeout(function(){//delay.
                     ranMove.textContent = inputPlayer2;
                     takenArray.push(randomCell);
                     computerArray.push(randomCell);
                     checkAI();
-                },1000); //delay is in milliseconds 
+                //},1000); //delay is in milliseconds 
                     return unmarked[randomIndex];
             };
         }; // end marked length check.
@@ -131,18 +131,18 @@ function blockPlayer() {
             document.getElementById(marked[0]).style.animation = "shake 0.4s ease-out";
             document.getElementById(marked[1]).style.animation = "shake 0.4s ease-out";
             document.getElementById(marked[2]).style.animation = "shake 0.4s ease-out";
-            setTimeout(function(){//delay.
+            //setTimeout(function(){//delay.
                 resetGame();
-            },500); //delay is in milliseconds 
+           // },500); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length) && (availableArray.length === 0)) {
-            setTimeout(function(){
+        if ((marked.length > 2)&&(takenArray.length === array.length)) {
+            //setTimeout(function(){
             // Shake animation.
             document.getElementById("playArea").style.animation = "shake 0.4s ease-out";
                 drawGame();
-            }, 800);
+           // }, 800);
         }
-        console.log('available: '+availableArray + ' end');      
+        console.log('available start: '+availableArray);      
     }; // end of winList for loop.
 }; // end of block function.
 function checkMark() {// if nothing to block, random move.
