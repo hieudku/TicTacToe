@@ -24,15 +24,19 @@ playerTurn.forEach(choice  => {
             getID = event.target.getAttribute('id');
             playerArray.push(Number(getID));
             takenArray.push(Number(getID));
-            availableArray = array.filter(x => !takenArray.includes(x));
-            console.log('available: '+availableArray);
+                filter();
                 blockPlayer();
                 checkMark();
                 console.log('player moves list: '+playerArray);
                 console.log('taken cells: '+takenArray);
                 console.log('marked: '+marked);
+                console.log('available: '+availableArray);
     });
 });
+// Filter
+function filter() {
+    availableArray = array.filter(x => !takenArray.includes(x));
+}
 // computer's move check.
 function checkAI() {
     console.log('ai array: ' + computerArray);
@@ -59,14 +63,15 @@ function checkAI() {
 };
 // computer to generate a random available move.
 function mathRandom() {
-    availableArray = array.filter(x => !takenArray.includes(x));
     setTimeout(function() { //delay.
     document.querySelectorAll('button');
     randomMove = availableArray[Math.floor(Math.random()*availableArray.length)];
-    move = document.getElementById(randomMove);
-    move.textContent = inputPlayer2;
-    takenArray.push(Number(randomMove));
-    computerArray.push(Number(randomMove));
+    document.getElementById(randomMove).textContent = inputPlayer2;
+    takenArray.push(randomMove);
+    computerArray.push(randomMove);
+    filter();
+    console.log('random: '+randomMove);
+    console.log('available after: '+availableArray);
     checkAI()
     },700); //delay is in milliseconds 
 };
@@ -130,8 +135,7 @@ function blockPlayer() {
                 resetGame();
             },500); //delay is in milliseconds 
         };
-        if ((takenArray.length === array.length) && (marked.length < 2)) {
-            availableArray = [];
+        if ((takenArray.length === array.length) && (availableArray.length === 0)) {
             setTimeout(function(){
             // Shake animation.
             document.getElementById("playArea").style.animation = "shake 0.4s ease-out";
