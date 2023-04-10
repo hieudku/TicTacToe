@@ -1,7 +1,7 @@
-const winList = [[0, 1, 2], [3, 4, 5], [5, 2, 8],
-                 [6, 7, 8], [8, 4, 0],
-                 [2, 4, 6], [0, 3, 6],
-                 [1, 4, 7]];
+const winList = [ [0, 1, 2], [3, 4, 5], [6, 7 ,8], // rows
+[0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+[0, 4 ,8], [2, 4, 6] // diagonals
+];
                  //combo list.
 const array = [0,1,2,3,4,5,6,7,8];
 let takenArray = [];
@@ -26,7 +26,7 @@ playerTurn.forEach(choice  => {
             takenArray.push(Number(getID));
                 filter();
                 blockPlayer();
-                checkMark();
+                mathRandom();
                 console.log('player arr: '+playerArray);
                 console.log('taken arr: '+takenArray);
                 console.log('marked: '+marked);
@@ -36,6 +36,7 @@ playerTurn.forEach(choice  => {
 // Filter  arrays
 function filter() {
     availableArray = array.filter(x => !takenArray.includes(x));
+    return availableArray;
 }
 // computer's move check.
 function checkAI() {
@@ -55,15 +56,16 @@ function checkAI() {
             document.getElementById(aiMark[1]).style.animation = "shake 0.4s ease-out";
             document.getElementById(aiMark[2]).style.animation = "shake 0.4s ease-out";
             availableArray = [];
-            //setTimeout(function() { // delay.
+            setTimeout(function() { // delay.
                 aiWin();
-            //}, 800);
+            }, 800);
         };
     };
 };
 // computer to generate a random available move.
 function mathRandom() {
-    //setTimeout(function() { //delay.
+    if (marked.length < 2) {
+    setTimeout(function() { //delay.
     document.querySelectorAll('button');
     randomMove = availableArray[Math.floor(Math.random()*availableArray.length)];
     document.getElementById(randomMove).textContent = inputPlayer2;
@@ -73,7 +75,8 @@ function mathRandom() {
     console.log('random: '+randomMove);
     console.log('available after: '+availableArray);
     checkAI()
-    //},700); //delay is in milliseconds 
+    },700); //delay is in milliseconds 
+    }
 };
 //function to block player's winning combo.
 function blockPlayer() {
@@ -84,26 +87,26 @@ function blockPlayer() {
         if (marked.length === 2) {
            let unmarked = combo.filter(cell => !playerArray.includes(cell));
             if (availableArray.includes(unmarked[0])) {
-               let move = document.getElementById(unmarked);
-                //setTimeout(function(){//delay.
+               let move = document.getElementById(unmarked[0]);
+                setTimeout(function(){//delay.
                     move.textContent = inputPlayer2;
                     takenArray.push(unmarked[0]);
                     computerArray.push(unmarked[0]);
                     checkAI();
-               // },800); //delay is in milliseconds 
+                },800); //delay is in milliseconds 
                     console.log('block move0: '+unmarked[0]);
                     return unmarked[0];
             }
             //Check if there are 2 winning possibilities.
             else if (availableArray.includes(unmarked[1])) {
-                let move = document.getElementById(unmarked);
-                //setTimeout(function(){//delay.
+                let move = document.getElementById(unmarked[1]);
+                setTimeout(function(){//delay.
                     move.textContent = inputPlayer2;
                     takenArray.push(unmarked[1]);
                     computerArray.push(unmarked[0]);
                         checkAI();
                     console.log('block move1: '+unmarked[1]);
-                //},1000); //delay is in milliseconds 
+                },1000); //delay is in milliseconds 
                     return unmarked[1];
             }
             //if there are, choose a single random outcome.
@@ -111,18 +114,18 @@ function blockPlayer() {
                 let randomIndex = Math.floor(mathRandom()*unmarked.length);
                 let randomCell = unmarked[randomIndex];
                 let ranMove = document.getElementById(randomCell);
-                //setTimeout(function(){//delay.
+                setTimeout(function(){//delay.
                     ranMove.textContent = inputPlayer2;
                     takenArray.push(randomCell);
                     computerArray.push(randomCell);
                     checkAI();
-                //},1000); //delay is in milliseconds 
+                },1000); //delay is in milliseconds 
                     return unmarked[randomIndex];
             };
         }; // end marked length check.
         if (marked.length === 3) {
-            availableArray = [];
             computerArray = [];
+            takenArray = [];
             // Highlight winning combo.
             document.getElementById(marked[0]).style.color = "rgb(81, 223, 104)"; 
             document.getElementById(marked[1]).style.color = "rgb(81, 223, 104)";
@@ -131,25 +134,22 @@ function blockPlayer() {
             document.getElementById(marked[0]).style.animation = "shake 0.4s ease-out";
             document.getElementById(marked[1]).style.animation = "shake 0.4s ease-out";
             document.getElementById(marked[2]).style.animation = "shake 0.4s ease-out";
-            //setTimeout(function(){//delay.
+            setTimeout(function(){//delay.
                 resetGame();
-           // },500); //delay is in milliseconds 
+            },500); //delay is in milliseconds 
+            return takenArray;
         };
-        if ((marked.length > 2)&&(takenArray.length === array.length)) {
-            //setTimeout(function(){
+        if (takenArray.length === 9) {
+            setTimeout(function(){
             // Shake animation.
             document.getElementById("playArea").style.animation = "shake 0.4s ease-out";
                 drawGame();
-           // }, 800);
+            }, 800);
         }
         console.log('available start: '+availableArray);      
     }; // end of winList for loop.
 }; // end of block function.
-function checkMark() {// if nothing to block, random move.
-    if (marked.length < 2) { 
-        mathRandom();
-    };
-};
+
 // hide DOM results.
     document.getElementById("youWin").style.display = "none";
     document.getElementById("restart").style.display = "none";

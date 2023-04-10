@@ -1,5 +1,6 @@
 html {
     background-color: rgb(36, 45, 48);
+    margin: 0 auto;
 }
 body {
     display: flex;
@@ -8,11 +9,6 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(167, 159, 159);
     gap: 1.4rem;
-}
-header {
-    font-size: 2.5rem;
-    color: rgb(167, 159, 159);
-    margin-bottom: 1rem;
 }
 button {
     color: rgb(36, 45, 48);
@@ -60,4 +56,24 @@ button:hover {
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+  footer {
+    background-color: rgb(31, 31, 31);
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 0;
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  header {
+    top: 0;
+    height: 3rem;
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
