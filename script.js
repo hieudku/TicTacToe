@@ -171,5 +171,5 @@ function drawGame() {
 function aiWin() {
     document.getElementById("restart").style.display = "inline-block";
     document.getElementById("youWin").style.display = "inline-block";        
-    document.getElementById("youWin").innerHTML = "You lose :("; 
+    document.getElementById("youWin").innerHTML = "Computer wins!"; 
 };
